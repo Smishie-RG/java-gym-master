@@ -19,7 +19,7 @@ public class TimeOfDay implements Comparable<TimeOfDay> {
         }
         return Integer.compare(this.minutes, other.minutes);
     }
-//
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -27,7 +27,7 @@ public class TimeOfDay implements Comparable<TimeOfDay> {
         TimeOfDay that = (TimeOfDay) o;
         return hours == that.hours && minutes == that.minutes;
     }
-//
+
     @Override
     public int hashCode() {
         return 31 * hours + minutes;
