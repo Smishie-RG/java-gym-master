@@ -2,7 +2,9 @@ package ru.yandex.practicum.gym;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
+
 public class TimetableTest {
 
     @Test
@@ -149,5 +151,35 @@ public class TimetableTest {
         List<CounterOfTrainings> result = timetable.getCountByCoaches();
 
         Assertions.assertTrue(result.isEmpty());
+    }
+
+    //Тест на две тренировки
+    @Test
+    void testGetTrainingSessionsForSameDayAndTimeMultipleSessions() {
+        Timetable timetable = new Timetable();
+
+        DayOfWeek day = DayOfWeek.MONDAY;
+        TimeOfDay time = new TimeOfDay(18, 0);
+
+        Coach coach1 = new Coach("Иванов", "Иван", "Иванович");
+        Coach coach2 = new Coach("Петров", "Пётр", "Петрович");
+
+        Group group1 = new Group("Акробатика", Age.CHILD, 60);
+        Group group2 = new Group("Гимнастика", Age.CHILD, 60);
+
+        TrainingSession session1 =
+                new TrainingSession(group1, coach1, day, time);
+        TrainingSession session2 =
+                new TrainingSession(group2, coach2, day, time);
+
+        timetable.addNewTrainingSession(session1);
+        timetable.addNewTrainingSession(session2);
+
+        List<TrainingSession> result =
+                timetable.getTrainingSessionsForDayAndTime(day, time);
+
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertTrue(result.contains(session1));
+        Assertions.assertTrue(result.contains(session2));
     }
 }
