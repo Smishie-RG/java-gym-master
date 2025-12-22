@@ -1,7 +1,5 @@
 package ru.yandex.practicum.gym;
 
-import java.util.Objects;
-
 public class TimeOfDay implements Comparable<TimeOfDay> {
 
     //часы (от 0 до 23)
@@ -15,22 +13,29 @@ public class TimeOfDay implements Comparable<TimeOfDay> {
     }
 
     @Override
-    public int compareTo(TimeOfDay o) {
-        if (hours != o.hours) return hours - o.hours;
-        return minutes - o.minutes;
+    public int compareTo(TimeOfDay other) {
+        if (this.hours != other.hours) {
+            return Integer.compare(this.hours, other.hours);
+        }
+        return Integer.compare(this.minutes, other.minutes);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TimeOfDay timeOfDay = (TimeOfDay) o;
-        return hours == timeOfDay.hours && minutes == timeOfDay.minutes;
+        if (!(o instanceof TimeOfDay)) return false;
+        TimeOfDay that = (TimeOfDay) o;
+        return hours == that.hours && minutes == that.minutes;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(hours, minutes);
+        return 31 * hours + minutes;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%02d:%02d", hours, minutes);
     }
 
     public int getHours() {
